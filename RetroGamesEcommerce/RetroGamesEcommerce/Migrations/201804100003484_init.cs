@@ -8,6 +8,30 @@ namespace RetroGamesEcommerce.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Consoles",
+                c => new
+                    {
+                        ConsoleId = c.Int(nullable: false, identity: true),
+                        ConsoleName = c.String(),
+                        CompanyOfOrigin = c.String(),
+                        ReleaseDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ConsoleId);
+            
+            CreateTable(
+                "dbo.Games",
+                c => new
+                    {
+                        GameId = c.Int(nullable: false, identity: true),
+                        GameName = c.String(),
+                        ConsoleId_ConsoleId = c.Int(),
+                        ReleaseDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.GameId)
+                .ForeignKey("dbo.Consoles", t => t.ConsoleId_ConsoleId)
+                .Index(t => t.ConsoleId_ConsoleId);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -83,17 +107,21 @@ namespace RetroGamesEcommerce.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Games", "ConsoleId_ConsoleId", "dbo.Consoles");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Games", new[] { "ConsoleId_ConsoleId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Games");
+            DropTable("dbo.Consoles");
         }
     }
 }

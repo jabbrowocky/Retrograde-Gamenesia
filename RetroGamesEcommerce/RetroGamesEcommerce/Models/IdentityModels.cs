@@ -29,5 +29,9 @@ namespace RetroGamesEcommerce.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet <Game> Games { get; set; }
+        public DbSet <Console> Consoles { get; set; }
+        public DbSet <Brand> Brands { get; set; }
+        public DbSet <Accessory> Accessories { get; set; }
     }
 }

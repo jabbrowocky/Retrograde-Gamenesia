@@ -13,7 +13,7 @@ namespace RetroGamesEcommerce.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201804051946582_init"; }
+            get { return "201804100003484_init"; }
         }
         
         string IMigrationMetadata.Source
